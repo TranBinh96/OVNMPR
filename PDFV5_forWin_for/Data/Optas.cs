@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PDFV5_forWin_for.Models
+namespace PDFV5_forWin_for.Data
 {
-    public class Line
+    public class Optas
     {
-
-
 
     }
 }
