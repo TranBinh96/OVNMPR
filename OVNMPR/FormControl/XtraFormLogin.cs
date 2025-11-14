@@ -36,7 +36,7 @@ namespace OVNMPR.FormControl
         }
 
 
-        private void btnSignIn_Click(object sender, EventArgs e)
+        public void AutoLogin()
         {
             Users user = new Users()
             {
@@ -60,8 +60,8 @@ namespace OVNMPR.FormControl
             if (checkKeepSign.Checked)
             {
                 Properties.Settings.Default.checkKeepSign = true;
-                Properties.Settings.Default.username = txtUser.Text.Trim(); 
-                Properties.Settings.Default.password = txtPass.Text.Trim(); 
+                Properties.Settings.Default.username = txtUser.Text.Trim();
+                Properties.Settings.Default.password = txtPass.Text.Trim();
             }
             else
             {
@@ -69,7 +69,7 @@ namespace OVNMPR.FormControl
             }
 
             // Ghi nhớ quyền Admin
-            Properties.Settings.Default.IsAdmin = (roleAdmin == "Admin");
+            Properties.Settings.Default.isAdmin = (roleAdmin == "Admin");
 
             // Lưu setting
             Properties.Settings.Default.Save();
@@ -82,12 +82,26 @@ namespace OVNMPR.FormControl
             this.Hide();
         }
 
+        private void btnSignIn_Click(object sender, EventArgs e)
+        {
+            AutoLogin();
+        }
+
 
         
 
         private void txtPassword_EditValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtPass_Properties_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // 👉 Xử lý khi nhấn Enter
+                AutoLogin();
+            }
         }
     }
 }

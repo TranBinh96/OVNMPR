@@ -169,6 +169,7 @@
             this.txtHostName.Name = "txtHostName";
             this.txtHostName.Properties.Appearance.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHostName.Properties.Appearance.Options.UseFont = true;
+            this.txtHostName.Properties.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtStation_Properties_KeyDown);
             this.txtHostName.Size = new System.Drawing.Size(271, 38);
             this.txtHostName.StyleController = this.dataLayoutControl1;
             this.txtHostName.TabIndex = 10;
@@ -179,6 +180,7 @@
             this.txtStation.Name = "txtStation";
             this.txtStation.Properties.Appearance.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtStation.Properties.Appearance.Options.UseFont = true;
+            this.txtStation.Properties.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtStation_Properties_KeyDown);
             this.txtStation.Size = new System.Drawing.Size(313, 38);
             this.txtStation.StyleController = this.dataLayoutControl1;
             this.txtStation.TabIndex = 11;
@@ -215,6 +217,7 @@
             this.txtAddressIP.Name = "txtAddressIP";
             this.txtAddressIP.Properties.Appearance.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAddressIP.Properties.Appearance.Options.UseFont = true;
+            this.txtAddressIP.Properties.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAddressIP_Properties_KeyDown);
             this.txtAddressIP.Size = new System.Drawing.Size(323, 38);
             this.txtAddressIP.StyleController = this.dataLayoutControl1;
             this.txtAddressIP.TabIndex = 10;
@@ -227,6 +230,7 @@
             this.cmbLineName.Properties.Appearance.Options.UseFont = true;
             this.cmbLineName.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cmbLineName.Properties.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtStation_Properties_KeyDown);
             this.cmbLineName.Size = new System.Drawing.Size(323, 38);
             this.cmbLineName.StyleController = this.dataLayoutControl1;
             this.cmbLineName.TabIndex = 12;
@@ -239,6 +243,7 @@
             this.cmbUnitName.Properties.Appearance.Options.UseFont = true;
             this.cmbUnitName.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cmbUnitName.Properties.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtStation_Properties_KeyDown);
             this.cmbUnitName.Size = new System.Drawing.Size(271, 38);
             this.cmbUnitName.StyleController = this.dataLayoutControl1;
             this.cmbUnitName.TabIndex = 10;
@@ -249,6 +254,7 @@
             this.txtSerinumber.Name = "txtSerinumber";
             this.txtSerinumber.Properties.Appearance.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSerinumber.Properties.Appearance.Options.UseFont = true;
+            this.txtSerinumber.Properties.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtStation_Properties_KeyDown);
             this.txtSerinumber.Size = new System.Drawing.Size(313, 38);
             this.txtSerinumber.StyleController = this.dataLayoutControl1;
             this.txtSerinumber.TabIndex = 10;

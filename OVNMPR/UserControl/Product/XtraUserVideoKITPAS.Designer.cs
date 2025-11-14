@@ -39,6 +39,7 @@
             this.cmbHostName = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cmbLocationLine = new DevExpress.XtraEditors.ComboBoxEdit();
             this.txtStation = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.btnClear = new DevExpress.XtraEditors.SimpleButton();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -53,8 +54,9 @@
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.gridControlVideoPas = new DevExpress.XtraGrid.GridControl();
             this.gridViewlVideoPas = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -63,8 +65,6 @@
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.btnClear = new DevExpress.XtraEditors.SimpleButton();
-            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl1)).BeginInit();
@@ -91,11 +91,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlVideoPas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewlVideoPas)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             this.SuspendLayout();
             // 
             // groupControl1
@@ -159,6 +159,7 @@
             this.txtKariID.Name = "txtKariID";
             this.txtKariID.Properties.Appearance.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtKariID.Properties.Appearance.Options.UseFont = true;
+            this.txtKariID.Properties.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbHostName_Properties_KeyDown);
             this.txtKariID.Size = new System.Drawing.Size(253, 38);
             this.txtKariID.StyleController = this.dataLayoutControl1;
             this.txtKariID.TabIndex = 9;
@@ -178,6 +179,7 @@
             this.dtStartTime.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.dtStartTime.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.dtStartTime.Properties.MaskSettings.Set("mask", "d");
+            this.dtStartTime.Properties.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbHostName_Properties_KeyDown);
             this.dtStartTime.Size = new System.Drawing.Size(236, 38);
             this.dtStartTime.StyleController = this.dataLayoutControl1;
             this.dtStartTime.TabIndex = 6;
@@ -198,6 +200,7 @@
             this.dtEndTime.Properties.EditFormat.FormatString = "";
             this.dtEndTime.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Custom;
             this.dtEndTime.Properties.MaskSettings.Set("mask", "d");
+            this.dtEndTime.Properties.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbHostName_Properties_KeyDown);
             this.dtEndTime.Size = new System.Drawing.Size(249, 38);
             this.dtEndTime.StyleController = this.dataLayoutControl1;
             this.dtEndTime.TabIndex = 7;
@@ -212,6 +215,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cmbHostName.Properties.SelectedIndexChanged += new System.EventHandler(this.cmbHostName_Properties_SelectedIndexChanged);
             this.cmbHostName.Properties.SelectedValueChanged += new System.EventHandler(this.cmbHostName_Properties_SelectedValueChanged);
+            this.cmbHostName.Properties.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbHostName_Properties_KeyDown);
             this.cmbHostName.Size = new System.Drawing.Size(253, 38);
             this.cmbHostName.StyleController = this.dataLayoutControl1;
             this.cmbHostName.TabIndex = 4;
@@ -225,6 +229,7 @@
             this.cmbLocationLine.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cmbLocationLine.Properties.SelectedIndexChanged += new System.EventHandler(this.cmbLocationLine_Properties_SelectedIndexChanged);
+            this.cmbLocationLine.Properties.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbHostName_Properties_KeyDown);
             this.cmbLocationLine.Size = new System.Drawing.Size(236, 38);
             this.cmbLocationLine.StyleController = this.dataLayoutControl1;
             this.cmbLocationLine.TabIndex = 5;
@@ -259,9 +264,23 @@
             "18",
             "19",
             "20"});
+            this.txtStation.Properties.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbHostName_Properties_KeyDown);
             this.txtStation.Size = new System.Drawing.Size(249, 38);
             this.txtStation.StyleController = this.dataLayoutControl1;
             this.txtStation.TabIndex = 10;
+            // 
+            // btnClear
+            // 
+            this.btnClear.Appearance.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClear.Appearance.Options.UseFont = true;
+            this.btnClear.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnClear.ImageOptions.Image")));
+            this.btnClear.Location = new System.Drawing.Point(12, 107);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(101, 36);
+            this.btnClear.StyleController = this.dataLayoutControl1;
+            this.btnClear.TabIndex = 11;
+            this.btnClear.Text = "Clear";
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // Root
             // 
@@ -425,14 +444,6 @@
             this.emptySpaceItem4.Size = new System.Drawing.Size(42, 42);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // emptySpaceItem2
-            // 
-            this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(105, 95);
-            this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(956, 40);
-            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-            // 
             // emptySpaceItem5
             // 
             this.emptySpaceItem5.AllowHotTrack = false;
@@ -440,6 +451,23 @@
             this.emptySpaceItem5.Name = "emptySpaceItem5";
             this.emptySpaceItem5.Size = new System.Drawing.Size(1355, 11);
             this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.Control = this.btnClear;
+            this.layoutControlItem9.Location = new System.Drawing.Point(0, 95);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(105, 40);
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem9.TextVisible = false;
+            // 
+            // emptySpaceItem2
+            // 
+            this.emptySpaceItem2.AllowHotTrack = false;
+            this.emptySpaceItem2.Location = new System.Drawing.Point(105, 95);
+            this.emptySpaceItem2.Name = "emptySpaceItem2";
+            this.emptySpaceItem2.Size = new System.Drawing.Size(956, 40);
+            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // gridControlVideoPas
             // 
@@ -532,28 +560,6 @@
             this.gridColumn6.VisibleIndex = 5;
             this.gridColumn6.Width = 480;
             // 
-            // btnClear
-            // 
-            this.btnClear.Appearance.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClear.Appearance.Options.UseFont = true;
-            this.btnClear.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
-            this.btnClear.Location = new System.Drawing.Point(12, 107);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(101, 36);
-            this.btnClear.StyleController = this.dataLayoutControl1;
-            this.btnClear.TabIndex = 11;
-            this.btnClear.Text = "Clear";
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // layoutControlItem9
-            // 
-            this.layoutControlItem9.Control = this.btnClear;
-            this.layoutControlItem9.Location = new System.Drawing.Point(0, 95);
-            this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(105, 40);
-            this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem9.TextVisible = false;
-            // 
             // XtraUserVideoKITPAS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -588,11 +594,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlVideoPas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewlVideoPas)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             this.ResumeLayout(false);
 
         }

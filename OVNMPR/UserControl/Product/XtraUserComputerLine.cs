@@ -1,4 +1,5 @@
 ﻿using DevExpress.Export;
+using DevExpress.Utils;
 using DevExpress.XtraEditors;
 using DevExpress.XtraPrinting;
 using OVNMRepository.Models;
@@ -20,7 +21,7 @@ namespace OVNMPR.UserControl
         {
             InitializeComponent();
             LoadData();
-            if (Properties.Settings.Default.isAdmin)
+            if (!Properties.Settings.Default.isAdmin)
             {
                 btnDelete.Enabled = false;  
                 btnSave.Enabled = false;  
@@ -28,8 +29,6 @@ namespace OVNMPR.UserControl
                 btnReset.Enabled = false;
                 txtSerinumber.ReadOnly = true;
                 txtHostName.ReadOnly = true;
-
-
             }
 
 
@@ -153,7 +152,7 @@ namespace OVNMPR.UserControl
                 string keySerial = computerLine.SerialNumber;
 
                 // Reload lại dữ liệu
-                LoadData();
+                AutoSearchData();
                 ClearDetail();
 
                 // Sau khi reload, tìm row vừa cập nhật
@@ -270,9 +269,12 @@ namespace OVNMPR.UserControl
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearDetail();
+            AutoSearchData();
+
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+
+        public void AutoSearchData()
         {
             var computerLine = new ComputerLine
             {
@@ -301,52 +303,73 @@ namespace OVNMPR.UserControl
             gridViewComputerLine.ExpandAllGroups();
         }
 
-        private void btnExport_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
-            //using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-            //{
-            //    saveFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx";
-            //    saveFileDialog.Title = "Xuất dữ liệu ra Excel";
-            //    saveFileDialog.FileName = "Export_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".xlsx";
-
-            //    if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            //    {
-            //        // 👉 Bỏ group trong GridView trước khi export
-            //        gridViewComputerLine.ClearGrouping();
-            //        gridViewComputerLine.OptionsView.ShowGroupPanel = false;
-
-            //        // Ẩn tạm 2 cột trước khi export
-            //        var colInfo = gridViewComputerLine.Columns["Information"];
-            //        var colUpdate = gridViewComputerLine.Columns["UpdateDate"];
-            //        bool infoVisible = colInfo.Visible;
-            //        bool updateVisible = colUpdate.Visible;
-
-            //        colInfo.Visible = false;
-            //        colUpdate.Visible = false;
-
-            //        // Cấu hình export
-            //        var options = new XlsxExportOptionsEx
-            //        {
-            //            ExportType = ExportType.WYSIWYG, // xuất giữ nguyên format
-            //            AllowGrouping = DevExpress.Utils.DefaultBoolean.False, // ❌ không xuất group
-            //            ShowGroupSummaries = DevExpress.Utils.DefaultBoolean.False, // ❌ không xuất tổng group
-            //            SheetName = "ComputerLine"
-            //        };
-
-            //        // Export ra Excel
-            //        gridViewComputerLine.ExportToXlsx(saveFileDialog.FileName, options);
-
-            //        // Khôi phục lại hiển thị cột
-            //        colInfo.Visible = infoVisible;
-            //        colUpdate.Visible = updateVisible;
-
-            //        MessageBox.Show("Xuất Excel thành công!\nFile: " + saveFileDialog.FileName,
-            //                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            //        Process.Start(saveFileDialog.FileName);
-            //    }
-            //}
+            AutoSearchData();
         }
 
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx";
+                saveFileDialog.Title = "Xuất dữ liệu ra Excel";
+                saveFileDialog.FileName = "Export_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".xlsx";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // 👉 Bỏ group trong GridView trước khi export
+                    gridViewComputerLine.ClearGrouping();
+                    gridViewComputerLine.OptionsView.ShowGroupPanel = false;
+
+                    // Ẩn tạm 2 cột trước khi export
+                    var colInfo = gridViewComputerLine.Columns["Information"];
+                    var colUpdate = gridViewComputerLine.Columns["UpdateDate"];
+                    bool infoVisible = colInfo.Visible;
+                    bool updateVisible = colUpdate.Visible;
+
+                    colInfo.Visible = false;
+                    colUpdate.Visible = false;
+
+                    // Cấu hình export
+                    var options = new XlsxExportOptionsEx()
+                    {
+                        ExportType = ExportType.WYSIWYG, // giữ nguyên format
+                        AllowGrouping = DefaultBoolean.False, // không xuất group
+                        ShowGroupSummaries = DefaultBoolean.False, // không xuất tổng group
+                        SheetName = "ComputerLine"
+                    };
+
+
+                    // Export ra Excel
+                    gridViewComputerLine.ExportToXlsx(saveFileDialog.FileName, options);
+
+                    // Khôi phục lại hiển thị cột
+                    colInfo.Visible = infoVisible;
+                    colUpdate.Visible = updateVisible;
+
+                    MessageBox.Show("Xuất Excel thành công!\nFile: " + saveFileDialog.FileName,
+                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    Process.Start(saveFileDialog.FileName);
+                }
+            }
+        }
+
+        private void txtStation_Properties_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                AutoSearchData();
+            }
+        }
+
+        private void txtAddressIP_Properties_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                AutoSearchData();
+            }
+        }
     }
 }

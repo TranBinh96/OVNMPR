@@ -80,6 +80,7 @@
             this.txtUser.Name = "txtUser";
             this.txtUser.Properties.Appearance.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUser.Properties.Appearance.Options.UseFont = true;
+            this.txtUser.Properties.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPass_Properties_KeyDown);
             this.txtUser.Size = new System.Drawing.Size(395, 38);
             this.txtUser.StyleController = this.dataLayoutControl1;
             this.txtUser.TabIndex = 4;
@@ -92,6 +93,7 @@
             this.txtPass.Properties.Appearance.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPass.Properties.Appearance.Options.UseFont = true;
             this.txtPass.Properties.PasswordChar = '*';
+            this.txtPass.Properties.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPass_Properties_KeyDown);
             this.txtPass.Size = new System.Drawing.Size(395, 38);
             this.txtPass.StyleController = this.dataLayoutControl1;
             this.txtPass.TabIndex = 5;

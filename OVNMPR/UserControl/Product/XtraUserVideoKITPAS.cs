@@ -175,7 +175,8 @@ namespace OVNMPR.UserControl
 
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+
+        public void AutoSearch()
         {
             try
             {
@@ -226,6 +227,11 @@ namespace OVNMPR.UserControl
             }
         }
 
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            AutoSearch();
+        }
+
 
         private List<PasVideo> SanitizePasVideoList(List<PasVideo> source)
         {
@@ -261,6 +267,14 @@ namespace OVNMPR.UserControl
             dtStartTime.EditValue = null;
             gridControlVideoPas.DataSource = null;  
 
+        }
+
+        private void cmbHostName_Properties_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                AutoSearch();   
+            }
         }
     }
 }

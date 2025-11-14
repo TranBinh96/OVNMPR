@@ -6,7 +6,7 @@ namespace PDFV5_forWin_for.Models
     public class StationName
     {
         public string UnitID { get; set; } = string.Empty;
-        public string KariID { get; set; } = string.Empty;
+        public string WorkerID { get; set; } = string.Empty;
         public string Station { get; set; } = string.Empty;
         public string Proficiency { get; set; } = string.Empty;
         public int Digits { get; set; } = 10;
@@ -23,25 +23,20 @@ namespace PDFV5_forWin_for.Models
         {
             // Chuẩn hoá dữ liệu
             UnitID = UnitID?.Trim() ?? "";
-            KariID = KariID?.Trim() ?? "";
+            WorkerID = WorkerID?.Trim() ?? "";
             Station = Station?.Trim() ?? "";
             Proficiency = Proficiency?.Trim() ?? "";
 
-            // --- Kiểm tra rỗng ---
-            if (string.IsNullOrEmpty(UnitID))
-            {
-                errorMessage = "UnitID không được để trống.";
-                return false;
-            }
+           
 
             // --- Kiểm tra WorkerID ---
-            if (string.IsNullOrWhiteSpace(KariID))
+            if (string.IsNullOrWhiteSpace(WorkerID))
             {
                 errorMessage = "WorkerID không được để trống.";
                 return false;
             }
 
-            if (KariID.Length < 7)
+            if (WorkerID.Length < 7)
             {
                 errorMessage = "WorkerID phải có đủ 7 ký tự.";
                 return false;

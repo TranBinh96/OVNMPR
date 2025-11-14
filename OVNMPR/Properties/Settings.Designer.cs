@@ -45,9 +45,7 @@ namespace OVNMPR.Properties {
                 this["isAdmin"] = value;
             }
         }
-
-        public bool IsAdmin { get; internal set; }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]

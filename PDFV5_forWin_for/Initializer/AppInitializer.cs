@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 
 namespace PDFV5_forWin_for.Initializer
@@ -46,6 +47,25 @@ namespace PDFV5_forWin_for.Initializer
                 .ToList();
 
             return matchedFiles.First().FilePath;
+        }
+
+
+        public static string GetMacAddress()
+        {
+            try
+            {
+                return NetworkInterface.GetAllNetworkInterfaces()
+                    .Where(nic => nic.OperationalStatus == OperationalStatus.Up &&
+                                  nic.NetworkInterfaceType != NetworkInterfaceType.Loopback &&
+                                  nic.NetworkInterfaceType != NetworkInterfaceType.Unknown)
+                    .Select(nic => nic.GetPhysicalAddress()?.ToString())
+                    .FirstOrDefault(mac => !string.IsNullOrWhiteSpace(mac))
+                    ?? "UNKNOWN";
+            }
+            catch
+            {
+                return "UNKNOWN";
+            }
         }
     }
 }
