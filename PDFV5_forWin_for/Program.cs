@@ -17,13 +17,35 @@ namespace PDFV5_forWin_for
             {
                 if (!createdNew)
                 {
-                    // Nếu app đã chạy, focus lên cửa sổ cũ
+                    // 👉 App đã chạy → focus lên cửa sổ cũ
                     foreach (var process in Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName))
                     {
                         if (process.Id != Process.GetCurrentProcess().Id)
                         {
-                            NativeMethods.ShowWindow(process.MainWindowHandle, 9);
-                            NativeMethods.SetForegroundWindow(process.MainWindowHandle);
+                            IntPtr hWnd = process.MainWindowHandle;
+
+                            // 👉 Lấy kích thước cửa sổ
+                            NativeMethods.RECT rect;
+                            NativeMethods.GetWindowRect(hWnd, out rect);
+
+                            int width = rect.Right - rect.Left;
+                            int height = rect.Bottom - rect.Top;
+
+                            // 👉 Ngưỡng HD (nếu cửa sổ nhỏ hơn thì Maximize)
+                            int minHeight = 700; // bạn muốn bao nhiêu thì đổi
+
+                            if (height < minHeight)
+                            {
+                                // 👉 Nhỏ → phóng to
+                                NativeMethods.ShowWindow(hWnd, 3);   // SW_MAXIMIZE
+                            }
+                            else
+                            {
+                                // 👉 Giữ nguyên
+                                NativeMethods.ShowWindow(hWnd, 9);   // SW_RESTORE
+                            }
+
+                            NativeMethods.SetForegroundWindow(hWnd);
                             break;
                         }
                     }
@@ -47,6 +69,18 @@ namespace PDFV5_forWin_for
 
             [System.Runtime.InteropServices.DllImport("user32.dll")]
             public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+            [System.Runtime.InteropServices.DllImport("user32.dll")]
+            public static extern bool GetWindowRect(IntPtr hWnd, out RECT rect);
+
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+            public struct RECT
+            {
+                public int Left;
+                public int Top;
+                public int Right;
+                public int Bottom;
+            }
         }
     }
 
@@ -55,7 +89,6 @@ namespace PDFV5_forWin_for
     // ================================================
     public static class AutoUpdater
     {
-        // 📁 Đường dẫn đến thư mục chứa bản cập nhật trên server
         private static readonly string serverFolder = @"\\10.216.28.11\okipevn\APP_PAS\PDFV5_forWin_for";
         private static readonly string versionFile = Path.Combine(serverFolder, "version.txt");
         private static readonly string exeFile = Path.Combine(serverFolder, "PDFV5_forWin_for.exe");
@@ -65,7 +98,7 @@ namespace PDFV5_forWin_for
             try
             {
                 if (!File.Exists(exeFile) || !File.Exists(versionFile))
-                    return; // Không có file cập nhật
+                    return;
 
                 string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 string latestVersion = ParseVersionFromFile(versionFile);
@@ -128,10 +161,8 @@ namespace PDFV5_forWin_for
                 string backupPath = Path.Combine(backupDir, $"PDFV5_forWin_for_{DateTime.Now:yyyyMMdd_HHmmss}.exe");
                 File.Copy(localPath, backupPath, true);
 
-                // Copy file mới từ server về
                 File.Copy(exeFile, tempPath, true);
 
-                // Dùng CMD để thay thế file sau khi thoát
                 ProcessStartInfo psi = new ProcessStartInfo()
                 {
                     FileName = "cmd.exe",
@@ -150,5 +181,4 @@ namespace PDFV5_forWin_for
             }
         }
     }
-
 }

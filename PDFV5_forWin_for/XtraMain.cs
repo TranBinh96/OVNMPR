@@ -18,6 +18,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using static System.Collections.Specialized.BitVector32;
 using DateTime = System.DateTime;
@@ -76,10 +77,14 @@ namespace PDFV5_forWin_for
             try
             {
                 xtraTabControl1.SelectedTabPage = nextPage;
+                  
+
             }
             finally
             {
+
                 transitionManager1.EndTransition();
+                tbUnitID.Focus();
             }
         }
 
@@ -100,8 +105,6 @@ namespace PDFV5_forWin_for
             la_duplicateid.Visible = false;
             la_duplicateid_2.Visible = false;
             SwitchTab(tab_nyuuryoku);
-            cbProficiency.Properties.Buttons[0].Width = 100;
-            cbStation.Properties.Buttons[0].Width = 100;
             this.M_ipaddress = this.ip_get();
 
             
@@ -231,6 +234,13 @@ namespace PDFV5_forWin_for
             cbStation.SelectedIndexChanged += (s, ev) => ValidateInputs();
             cbProficiency.SelectedIndexChanged += (s, ev) => ValidateInputs();
         }
+
+        public static string NormalizeUnitID(string s)
+        {
+            return string.IsNullOrWhiteSpace(s)
+                ? ""
+                : s.Trim().Normalize(NormalizationForm.FormKD).ToLower();
+        }
         private bool ValidateInputs()
         {
             // 🧹 Xóa lỗi cũ
@@ -239,8 +249,8 @@ namespace PDFV5_forWin_for
             // 🧾 Gán giá trị từ giao diện
             StationName = new StationName
             {
-                UnitID = tbUnitID.Text.Trim(),
-                WorkerID = tbWorkerID.Text?.Trim(),
+                UnitID = NormalizeUnitID(tbUnitID.Text?.Trim()),
+                WorkerID = NormalizeUnitID(tbWorkerID.Text?.Trim().ToUpper()),
                 Station = cbStation.Text?.Trim(),
                 Proficiency = cbProficiency.Text?.Trim(),
                 Digits = 10
@@ -269,8 +279,7 @@ namespace PDFV5_forWin_for
                         tbUnitID.Select();
                     };
                     timer.Start();
-                }));
-
+                })); 
                 return true;
             }
 
@@ -312,7 +321,7 @@ namespace PDFV5_forWin_for
 
             ConfigHelper.SaveMaster(
                 StationName.UnitID,
-                StationName.WorkerID,
+                StationName.WorkerID.ToUpper(),
                 StationName.Station,
                 StationName.Proficiency
             );
@@ -381,10 +390,13 @@ namespace PDFV5_forWin_for
                     GenLogger("E");
                     if (isLayout)
                         UpdateLayout();
-
+                    bool hasSixNines = Regex.IsMatch(StationName.UnitID, "999999");
                     var config = ConfigHelper.ReadConfig();
-                    Worktarget = int.Parse(config.ContainsKey("SL") ? config["SL"] : "")+1;
-                    ConfigHelper.UpdateConfigValue("SL", Worktarget.ToString());
+                    if (!hasSixNines)
+                    {
+                        Worktarget = int.Parse(config.ContainsKey("SL") ? config["SL"] : "") + 1;
+                        ConfigHelper.UpdateConfigValue("SL", Worktarget.ToString());
+                    }
                     ProcessFinished();
                     this.BeginInvoke(new Action(() =>
                     {
@@ -524,14 +536,14 @@ namespace PDFV5_forWin_for
                 LoadPdf(CTTK.FileLink);
                 if (!isBypass )
                 {
-                    ShowPage(CurrentPage > 0 ? CurrentPage : 1);
+                    ShowPage(CurrentPage > 0 ? CurrentPage-1 : 0);
                 }
                 else
                 {
                     var optas_layout = OptasLayout.Search(unit_id, int.Parse(Station), true).FirstOrDefault();
                     if (optas_layout != null)
                     {
-                        CurrentPage = optas_layout.CurrentPage;
+                        CurrentPage = optas_layout != null ? optas_layout.CurrentPage : 0;
                         ShowPage(CurrentPage);
                         isLayout = true;
                     }
@@ -820,6 +832,10 @@ namespace PDFV5_forWin_for
             }
         }
 
+        private void tbWorkerID_Properties_Leave(object sender, EventArgs e)
+        {
+            tbUnitID.Text = tbUnitID.Text.ToUpper();
+        }
     }
 
 
